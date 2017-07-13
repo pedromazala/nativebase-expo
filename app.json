@@ -1,5 +1,25 @@
 {
   "expo": {
-    "sdkVersion": "18.0.0"
+    "sdkVersion": "18.0.0",
+    "icon": "http://nativebase.io/assets/img/front-page-icon.png",
+    "loading": {
+      "hideExponentText": true,
+      "backgroundImage": "./img/splashscreen.png"
+    },
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "packagerOpts": {
+      "assetExts": [
+        "ttf"
+      ]
+    },
+    "android": {
+      "package": "br.com.teksystem.pedromazala0"
+    },
+    "androidStatusBarColor": "#334393",
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#334393"
+    }
   }
 }

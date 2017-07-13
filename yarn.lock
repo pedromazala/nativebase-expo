@@ -1395,8 +1395,8 @@ camelcase@^3.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 caniuse-lite@^1.0.30000684:
-  version "1.0.30000699"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000699.tgz#2a187b737edaa9ebedbbb56edcb53e994eceda0c"
+  version "1.0.30000700"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000700.tgz#6084871ec75c6fa62327de97622514f95d9db26a"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -2058,8 +2058,8 @@ expand-range@^1.8.1:
     fill-range "^2.1.0"
 
 expo@^18.0.3:
-  version "18.0.8"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.8.tgz#1536f7b9e715421f0d303d6ee9c786f623a47e19"
+  version "18.0.9"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-18.0.9.tgz#5653a930c79ae5b268e3811b990b1aced21ba42d"
   dependencies:
     "@expo/vector-icons" "^5.0.0"
     babel-preset-airbnb "^2.2.3"
@@ -2073,7 +2073,7 @@ expo@^18.0.3:
     prop-types "^15.5.10"
     react-native-branch "2.0.0-beta.3"
     react-native-fbads "https://github.com/callstack-io/react-native-fbads/tarball/v4.1.0"
-    react-native-maps "0.15.3"
+    react-native-maps "https://github.com/expo/react-native-maps/archive/v0.15.2.tar.gz"
     react-native-svg "https://github.com/expo/react-native-svg/archive/5.2.0-exp.0.tar.gz"
     uuid-js "^0.7.5"
     websql expo/node-websql#18.0.0
@@ -3395,8 +3395,8 @@ locate-path@^2.0.0:
     path-exists "^3.0.0"
 
 lock@^0.1.2:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/lock/-/lock-0.1.3.tgz#f66c1caa0c41956e1426608039ed59b71bdf1854"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/lock/-/lock-0.1.4.tgz#fec7deaef17e7c3a0a55e1da042803e25d91745d"
 
 lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
@@ -4324,9 +4324,9 @@ react-native-keyboard-aware-scroll-view@0.2.9:
   dependencies:
     react-timer-mixin "^0.13.3"
 
-react-native-maps@0.15.3:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.15.3.tgz#5d9e0a8e30ecc51dc755b7a3b9d6b6ed5e2dd08c"
+"react-native-maps@https://github.com/expo/react-native-maps/archive/v0.15.2.tar.gz":
+  version "0.15.2"
+  resolved "https://github.com/expo/react-native-maps/archive/v0.15.2.tar.gz#e6a022511fbb53d0db5029dc0b159dd194a3763f"
 
 react-native-safe-module@^1.1.0:
   version "1.2.0"
@@ -4569,8 +4569,8 @@ redux-logger@^2.7.4:
     deep-diff "0.3.4"
 
 redux@^3.6.0:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.1.tgz#bfc535c757d3849562ead0af18ac52122cd7268e"
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
     lodash "^4.2.1"
     lodash-es "^4.2.1"
@@ -5526,7 +5526,7 @@ webidl-conversions@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.1.tgz#8015a17ab83e7e1b311638486ace81da6ce206a0"
 
-websql@expo/node-websql#18.0.0:
+"websql@github:expo/node-websql#18.0.0":
   version "0.4.4"
   resolved "https://codeload.github.com/expo/node-websql/tar.gz/e364fa65146a9e2157a19e5c719e7702c2b6b87a"
   dependencies:
