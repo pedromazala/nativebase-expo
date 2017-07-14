@@ -17,7 +17,8 @@ import {
   ListItem,
   View,
   Text,
-  Thumbnail
+  Thumbnail,
+  Card, CardItem, H3
 } from 'native-base';
 
 import getTheme from '../../native-base-theme/components';
@@ -27,7 +28,7 @@ function getIconTest() {
   return (<IconTest name="ios-person" size={30} color="#4F8EF7"/>);
 }
 import {FontAwesome} from '@expo/vector-icons';
-import {Image} from 'react-native';
+import {StyleSheet, Modal, Image, Platform} from 'react-native';
 import {Asset, Font} from 'expo';
 function cacheAssetsAsync({images = [], fonts = []}) {
   return Promise.all([...cacheImages(images), ...cacheFonts(fonts)]);
@@ -55,6 +56,8 @@ export default class extends Component {
       search: "dcomposer",
       lading: false,
       isReady: false,
+      modalVisible: false,
+      selectedItem: undefined,
       results: {
         items: []
       }
@@ -111,6 +114,13 @@ export default class extends Component {
     // }
   }
 
+  setModalVisible(visible, x) {
+    this.setState({
+      modalVisible: visible,
+      selectedItem: x
+    });
+  }
+
   render() {
     // if (!this.state.isReady) {
     //   return <Expo.AppLoading />;
@@ -120,7 +130,7 @@ export default class extends Component {
       <StyleProvider style={getTheme()}>
         <Container>
           <Content>
-            <Header searchBar rounded>
+            <Header searchBar rounded iosBarStyle="dark-content" androidStatusBarColor="red">
               {/*<InputGroup>*/}
               <Icon label="jobron" name="search"/>
               {/*{getIconTest()}*/}
@@ -151,9 +161,75 @@ export default class extends Component {
                   </ListItem>
                 }/>
             }
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                alert("Modal has been closed.")
+              }}
+            >
+              <Card style={{paddingTop: 20}}>
+                {
+                  !this.state.selectedItem ?
+                    <View /> :
+                    <CardItem cardBody style={{justifyContent: 'flex-start'}}>
+                      <Thumbnail square size={200} source={{uri: this.state.selectedItem.owner.avatar_url}}/>
+                      <View>
+                        <Text style={{padding: 10}}>
+                          <H3 style={styles.header}> {this.state.selectedItem.name}</H3>
+                          <Text style={styles.negativeMargin}>
+                            {`\n`}Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+                          </Text>
+                          <Text style={styles.negativeMargin}>
+                            {`\n`}Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
+                          </Text>
+                          <Text style={styles.negativeMargin}>
+                            {`\n`}Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
+                          </Text>
+                          <Text style={styles.negativeMargin}>
+                            {`\n`}Open Issues: <Text
+                            style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
+                          </Text>
+                          <Text>
+                            {`\n`}Last Update: <Text
+                            style={styles.bold}>{this.state.selectedItem.updated_at.slice(0, 10)}{`\n`}</Text>
+                          </Text>
+                          {`\n`}
+                        </Text>
+                      </View>
+                      <Button danger style={{alignSelf: 'flex-end'}} onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
+                      }}>
+                        <Text>Go Back</Text>
+                      </Button>
+                    </CardItem>
+                }
+              </Card>
+            </Modal>
           </Content>
         </Container>
       </StyleProvider>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    marginLeft: -5,
+    marginTop: 5,
+    marginBottom: (Platform.OS === 'ios') ? -7 : 0,
+    lineHeight: 24,
+    color: '#5357b6'
+  },
+  modalImage: {
+    resizeMode: 'contain',
+    height: 200
+  },
+  bold: {
+    fontWeight: '600'
+  },
+  negativeMargin: {
+    marginBottom: -10
+  }
+});
