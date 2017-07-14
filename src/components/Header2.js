@@ -40,7 +40,7 @@ class Header2 extends Component {
                 iosBarStyle="light-content">
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="arrow-back" color="#DE5347"/>
+              <Icon name="arrow-back"  style={{color: "yellow"}}/>
             </Button>
           </Left>
           <Body>
@@ -49,7 +49,7 @@ class Header2 extends Component {
           </Body>
           <Right>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
-              <Icon name="menu" />
+              <Icon name="menu" style={{color: "white"}}/>
             </Button>
           </Right>
 
@@ -60,14 +60,11 @@ class Header2 extends Component {
             Header with Icon Buttons
             <Icon
               name="logo-apple"
-              underlayColor={'#EEE'}
-              unselectedTintColor={'#EEE'}
-              color={'#EEE'}
-              style={{ width: 45, height: 45, justifyContent: "center" }}
+              style={{ width: 45, height: 45, justifyContent: "center", color: "gray" }}
             />
             <Icon
               name="logo-android"
-              style={{ width: 45, height: 45, justifyContent: "center" }}
+              style={{ width: 45, height: 45, justifyContent: "center", color: "green" }}
             />
             {`\n`}
           </Text>

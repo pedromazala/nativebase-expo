@@ -8,7 +8,7 @@ import {
   Container,
   Content,
   Header,
-  InputGroup,
+  Item,
   Icon,
   Input,
   Button,
@@ -90,9 +90,20 @@ export default class extends Component {
       });
   }
 
-  componentWillMount() {
-    this.setState({appIsReady: true});
-    this._loadAssetsAsync();
+  // componentWillMount() {
+  //   Expo.Font.loadAsync({
+  //     'Roboto': require('native-base/Fonts/Roboto.ttf'),
+  //     'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+  //   });
+  //   this.setState({appIsReady: true});
+  //   this._loadAssetsAsync();
+  // }
+  async componentDidMount() {
+    await Expo.Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+    });
+    this.setState({isReady: true});
   }
 
   async _loadAssetsAsync() {
@@ -122,24 +133,24 @@ export default class extends Component {
   }
 
   render() {
-    // if (!this.state.isReady) {
-    //   return <Expo.AppLoading />;
-    // }
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
 
     return (
       <StyleProvider style={getTheme()}>
         <Container>
           <Content>
-            <Header searchBar rounded iosBarStyle="dark-content" androidStatusBarColor="red">
-              {/*<InputGroup>*/}
-              <Icon label="jobron" name="search"/>
-              {/*{getIconTest()}*/}
-              <Input placeholder="Search" value={this.state.search}
-                     onChangeText={(text) => this.setState({search: text})} onSubmitEditing={() => this.search()}/>
-              <Button onPress={() => this.search()}>
-                <Text>Go</Text>
+            <Header searchBar rounded>
+              <Item>
+                <Icon active name="search"/>
+                <Input placeholder="Search" value={this.state.search}
+                       onChangeText={(text) => {this.setState({search: text})}} onSubmitEditing={() => this.search()}/>
+                <Icon active name="people"/>
+              </Item>
+              <Button transparent onPress={() => this.search()}>
+                <Text>Go!</Text>
               </Button>
-              {/*</InputGroup>*/}
             </Header>
             {
               this.state.loading ?
