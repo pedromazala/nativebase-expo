@@ -18,35 +18,35 @@ import {
   View,
   Text,
   Thumbnail,
-  Card, CardItem, H3
+  Card, CardItem, H3,
+  Toast
 } from 'native-base';
 
 import getTheme from '../../native-base-theme/components';
 
-import IconTest from 'react-native-vector-icons/Ionicons';
-function getIconTest() {
-  return (<IconTest name="ios-person" size={30} color="#4F8EF7"/>);
-}
-import {FontAwesome} from '@expo/vector-icons';
-import {StyleSheet, Modal, Image, Platform} from 'react-native';
-import {Asset, Font} from 'expo';
-function cacheAssetsAsync({images = [], fonts = []}) {
-  return Promise.all([...cacheImages(images), ...cacheFonts(fonts)]);
-}
+import {StyleSheet, Modal, Platform} from 'react-native';
 
-function cacheImages(images) {
-  return images.map(image => {
-    if (typeof image === 'string') {
-      return Image.prefetch(image);
-    } else {
-      return Asset.fromModule(image).downloadAsync();
-    }
-  });
-}
+import material from '../../native-base-theme/variables/material';
 
-function cacheFonts(fonts) {
-  return fonts.map(font => Font.loadAsync(font));
-}
+const styles = {
+  header: {
+    marginLeft: -5,
+    marginTop: 5,
+    marginBottom: (Platform.OS === 'ios') ? -7 : 0,
+    lineHeight: 24,
+    color: '#5357b6'
+  },
+  modalImage: {
+    resizeMode: 'contain',
+    height: 200
+  },
+  bold: {
+    fontWeight: '600'
+  },
+  negativeMargin: {
+    marginBottom: -10
+  }
+};
 
 export default class extends Component {
   constructor(props) {
@@ -90,39 +90,13 @@ export default class extends Component {
       });
   }
 
-  // componentWillMount() {
-  //   Expo.Font.loadAsync({
-  //     'Roboto': require('native-base/Fonts/Roboto.ttf'),
-  //     'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-  //   });
-  //   this.setState({appIsReady: true});
-  //   this._loadAssetsAsync();
-  // }
   async componentDidMount() {
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
     });
     this.setState({isReady: true});
-  }
-
-  async _loadAssetsAsync() {
-    // try {
-    //   await cacheAssetsAsync({
-    //     fonts: [
-    //       FontAwesome.font,
-    //       {'space-mono': require('native-base/Fonts/Roboto_medium.ttf')},
-    //     ],
-    //   });
-    // } catch (e) {
-    //   console.warn(
-    //     'There was an error caching assets (see: main.js), perhaps due to a ' +
-    //     'network timeout, so we skipped caching. Reload the app to try again.'
-    //   );
-    //   console.log(e.message);
-    // } finally {
-    //   this.setState({appIsReady: true});
-    // }
+    this.search();
   }
 
   setModalVisible(visible, x) {
@@ -138,15 +112,17 @@ export default class extends Component {
     }
 
     return (
-      <StyleProvider style={getTheme()}>
+      <StyleProvider style={getTheme(material)}>
         <Container>
           <Content>
             <Header searchBar rounded>
               <Item>
                 <Icon active name="search"/>
                 <Input placeholder="Search" value={this.state.search}
-                       onChangeText={(text) => {this.setState({search: text})}} onSubmitEditing={() => this.search()}/>
-                <Icon active name="people"/>
+                       onChangeText={(text) => {
+                         this.setState({search: text})
+                       }} onSubmitEditing={() => this.search()}/>
+                <Icon style={{color: "orange"}} name="pizza"/>
               </Item>
               <Button transparent onPress={() => this.search()}>
                 <Text>Go!</Text>
@@ -180,41 +156,48 @@ export default class extends Component {
                 alert("Modal has been closed.")
               }}
             >
-              <Card style={{paddingTop: 20}}>
+              <Card style={{paddingTop: 20, marginTop: 40}}>
                 {
                   !this.state.selectedItem ?
                     <View /> :
-                    <CardItem cardBody style={{justifyContent: 'flex-start'}}>
-                      <Thumbnail square size={200} source={{uri: this.state.selectedItem.owner.avatar_url}}/>
-                      <View>
-                        <Text style={{padding: 10}}>
-                          <H3 style={styles.header}> {this.state.selectedItem.name}</H3>
-                          <Text style={styles.negativeMargin}>
-                            {`\n`}Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+                    <View>
+                      <CardItem>
+                        <Thumbnail large circle style={{width: 200, height: 200}} source={{uri: this.state.selectedItem.owner.avatar_url}}/>
+                      </CardItem>
+                      <CardItem cardBody style={{justifyContent: 'flex-start'}}>
+                        <View>
+                          <Text style={{padding: 10}}>
+                            <H3 style={styles.header}> {this.state.selectedItem.name}</H3>
+                            <Text style={styles.negativeMargin}>
+                              {`\n`}Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+                            </Text>
+                            <Text style={styles.negativeMargin}>
+                              {`\n`}Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
+                            </Text>
+                            <Text style={styles.negativeMargin}>
+                              {`\n`}Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
+                            </Text>
+                            <Text style={styles.negativeMargin}>
+                              {`\n`}Open Issues: <Text
+                              style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
+                            </Text>
+                            <Text>
+                              {`\n`}Last Update: <Text
+                              style={styles.bold}>{this.state.selectedItem.updated_at.slice(0, 10)}{`\n`}</Text>
+                            </Text>
+                            {`\n`}
                           </Text>
-                          <Text style={styles.negativeMargin}>
-                            {`\n`}Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
-                          </Text>
-                          <Text style={styles.negativeMargin}>
-                            {`\n`}Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
-                          </Text>
-                          <Text style={styles.negativeMargin}>
-                            {`\n`}Open Issues: <Text
-                            style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
-                          </Text>
-                          <Text>
-                            {`\n`}Last Update: <Text
-                            style={styles.bold}>{this.state.selectedItem.updated_at.slice(0, 10)}{`\n`}</Text>
-                          </Text>
-                          {`\n`}
-                        </Text>
-                      </View>
-                      <Button danger style={{alignSelf: 'flex-end'}} onPress={() => {
-                        this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
-                      }}>
-                        <Text>Go Back</Text>
-                      </Button>
-                    </CardItem>
+                        </View>
+                      </CardItem>
+                      <CardItem>
+                        <Button rounded primary style={{alignSelf: "flex-end"}} onPress={() => {
+                          this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
+                        }}>
+                          <Icon name='arrow-back' />
+                          <Text>Go Back</Text>
+                        </Button>
+                      </CardItem>
+                    </View>
                 }
               </Card>
             </Modal>
@@ -224,23 +207,3 @@ export default class extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  header: {
-    marginLeft: -5,
-    marginTop: 5,
-    marginBottom: (Platform.OS === 'ios') ? -7 : 0,
-    lineHeight: 24,
-    color: '#5357b6'
-  },
-  modalImage: {
-    resizeMode: 'contain',
-    height: 200
-  },
-  bold: {
-    fontWeight: '600'
-  },
-  negativeMargin: {
-    marginBottom: -10
-  }
-});
