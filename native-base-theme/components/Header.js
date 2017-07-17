@@ -116,9 +116,10 @@ export default (variables = variable) => {
           paddingHorizontal: null,
           paddingLeft: platform === "ios" ? 10 : null
         },
-        paddingHorizontal: platform === "ios" ? undefined : null,
-        width: platform === "ios" ? undefined : 0,
-        height: platform === "ios" ? undefined : 0
+        paddingHorizontal: platform === "ios" ? undefined : 15,
+        marginHorizontal: platform === "ios" ? undefined : 15,
+        width: undefined,
+        height: undefined
       }
     },
     ".rounded": {
