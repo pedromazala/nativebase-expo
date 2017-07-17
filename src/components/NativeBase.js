@@ -114,20 +114,20 @@ export default class extends Component {
     return (
       <StyleProvider style={getTheme(material)}>
         <Container>
+          <Header searchBar rounded>
+            <Item>
+              <Icon active name="search"/>
+              <Input placeholder="Search" value={this.state.search}
+                     onChangeText={(text) => {
+                       this.setState({search: text})
+                     }} onSubmitEditing={() => this.search()}/>
+              <Icon style={{color: "orange"}} name="pizza"/>
+            </Item>
+            <Button transparent onPress={() => this.search()}>
+              <Text>Go!</Text>
+            </Button>
+          </Header>
           <Content>
-            <Header searchBar rounded>
-              <Item>
-                <Icon active name="search"/>
-                <Input placeholder="Search" value={this.state.search}
-                       onChangeText={(text) => {
-                         this.setState({search: text})
-                       }} onSubmitEditing={() => this.search()}/>
-                <Icon style={{color: "orange"}} name="pizza"/>
-              </Item>
-              <Button transparent onPress={() => this.search()}>
-                <Text>Go!</Text>
-              </Button>
-            </Header>
             {
               this.state.loading ?
                 <View>
