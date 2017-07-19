@@ -59,7 +59,6 @@ export default class extends Component {
     this.state = {
       search: "dcomposer",
       lading: false,
-      isReady: false,
       modalVisible: false,
       selectedItem: undefined,
       results: {
@@ -94,12 +93,7 @@ export default class extends Component {
       });
   }
 
-  async componentDidMount() {
-    await Expo.Font.loadAsync({
-      'Roboto': require('native-base/Fonts/Roboto.ttf'),
-      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-    });
-    this.setState({isReady: true});
+  componentDidMount() {
     this.search();
   }
 
@@ -111,10 +105,6 @@ export default class extends Component {
   }
 
   render() {
-    if (!this.state.isReady) {
-      return <Expo.AppLoading />;
-    }
-
     return (
       <StyleProvider style={getTheme(platform)}>
         <Container>
