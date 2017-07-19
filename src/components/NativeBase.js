@@ -19,7 +19,10 @@ import {
   Text,
   Thumbnail,
   Card, CardItem, H3,
-  Toast
+
+  Toast,
+  Left,
+  Right
 } from 'native-base';
 
 import getTheme from '../../native-base-theme/components';
@@ -27,6 +30,7 @@ import getTheme from '../../native-base-theme/components';
 import {StyleSheet, Modal, Platform} from 'react-native';
 
 import material from '../../native-base-theme/variables/material';
+import platform from '../../native-base-theme/variables/platform';
 
 const styles = {
   header: {
@@ -112,7 +116,7 @@ export default class extends Component {
     }
 
     return (
-      <StyleProvider style={getTheme(material)}>
+      <StyleProvider style={getTheme(platform)}>
         <Container>
           <Header searchBar rounded>
             <Item>
@@ -148,59 +152,64 @@ export default class extends Component {
                   </ListItem>
                 }/>
             }
-            <Modal
-              animationType="slide"
-              transparent={false}
-              visible={this.state.modalVisible}
-              onRequestClose={() => {
-                alert("Modal has been closed.")
-              }}
-            >
-              <Card style={{paddingTop: 20, marginTop: 40}}>
-                {
-                  !this.state.selectedItem ?
-                    <View /> :
-                    <View>
-                      <CardItem>
-                        <Thumbnail large circle style={{width: 200, height: 200}} source={{uri: this.state.selectedItem.owner.avatar_url}}/>
-                      </CardItem>
-                      <CardItem cardBody style={{justifyContent: 'flex-start'}}>
-                        <View>
-                          <Text style={{padding: 10}}>
-                            <H3 style={styles.header}> {this.state.selectedItem.name}</H3>
-                            <Text style={styles.negativeMargin}>
-                              {`\n`}Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+            <View>
+              <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                  alert("Modal has been closed.")
+                }}
+              >
+                <Card style={{paddingTop: 20, marginTop: 40}}>
+                  {
+                    !this.state.selectedItem ?
+                      <View /> :
+                      <View>
+                        <CardItem>
+                          <Thumbnail large circle
+                                     style={{width: 200, height: 200}}
+                                     source={{uri: this.state.selectedItem.owner.avatar_url}}
+                          />
+                        </CardItem>
+                        <CardItem cardBody style={{justifyContent: 'flex-start'}}>
+                          <View>
+                            <Text style={{padding: 10}}>
+                              <H3 style={styles.header}> {this.state.selectedItem.name}</H3>
+                              <Text style={styles.negativeMargin}>
+                                {`\n`}Type: <Text style={styles.bold}>{this.state.selectedItem.owner.type}</Text>
+                              </Text>
+                              <Text style={styles.negativeMargin}>
+                                {`\n`}Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
+                              </Text>
+                              <Text style={styles.negativeMargin}>
+                                {`\n`}Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
+                              </Text>
+                              <Text style={styles.negativeMargin}>
+                                {`\n`}Open Issues: <Text
+                                style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
+                              </Text>
+                              <Text>
+                                {`\n`}Last Update: <Text
+                                style={styles.bold}>{this.state.selectedItem.updated_at.slice(0, 10)}{`\n`}</Text>
+                              </Text>
+                              {`\n`}
                             </Text>
-                            <Text style={styles.negativeMargin}>
-                              {`\n`}Stars: <Text style={styles.bold}>{this.state.selectedItem.stargazers_count}</Text>
-                            </Text>
-                            <Text style={styles.negativeMargin}>
-                              {`\n`}Language: <Text style={styles.bold}>{this.state.selectedItem.language}</Text>
-                            </Text>
-                            <Text style={styles.negativeMargin}>
-                              {`\n`}Open Issues: <Text
-                              style={styles.bold}>{this.state.selectedItem.open_issues_count}</Text>
-                            </Text>
-                            <Text>
-                              {`\n`}Last Update: <Text
-                              style={styles.bold}>{this.state.selectedItem.updated_at.slice(0, 10)}{`\n`}</Text>
-                            </Text>
-                            {`\n`}
-                          </Text>
-                        </View>
-                      </CardItem>
-                      <CardItem>
-                        <Button rounded primary style={{alignSelf: "flex-end"}} onPress={() => {
-                          this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
-                        }}>
-                          <Icon name='arrow-back' />
-                          <Text>Go Back</Text>
-                        </Button>
-                      </CardItem>
-                    </View>
-                }
-              </Card>
-            </Modal>
+                          </View>
+                        </CardItem>
+                        <CardItem>
+                          <Button rounded primary style={{alignSelf: "flex-end"}} onPress={() => {
+                            this.setModalVisible(!this.state.modalVisible, this.state.selectedItem)
+                          }}>
+                            <Icon name='arrow-back'/>
+                            <Text>Go Back</Text>
+                          </Button>
+                        </CardItem>
+                      </View>
+                  }
+                </Card>
+              </Modal>
+            </View>
           </Content>
         </Container>
       </StyleProvider>
