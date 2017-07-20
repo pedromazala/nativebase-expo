@@ -5,7 +5,8 @@ import Expo from "expo";
 // import NbComponent from './src/Tests/NativeBase';
 // import NbComponent from './src/Tests/Header2';
 // import NbComponent from './src/Tests/Modal';
-import NbComponent from './src/Navigation/HomeScreen/index';
+// import NbComponent from './src/Navigation/HomeScreen/index';
+import NbComponent from './src/Redux/index';
 
 export default class extends Component {
   constructor() {
