@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Expo from "expo";
 
-// import NbComponent from './src/components/HelloWorld';
-// import NbComponent from './src/components/NativeBase';
-// import NbComponent from './src/components/Header2';
-// import NbComponent from './src/components/Modal';
+// import NbComponent from './src/Tests/HelloWorld';
+// import NbComponent from './src/Tests/NativeBase';
+// import NbComponent from './src/Tests/Header2';
+// import NbComponent from './src/Tests/Modal';
 import NbComponent from './src/Navigation/HomeScreen/index';
 
 export default class extends Component {

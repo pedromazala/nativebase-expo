@@ -27,7 +27,7 @@ import {
 
 import getTheme from '../../native-base-theme/components';
 
-import {StyleSheet, Modal, Platform} from 'react-native';
+import {StyleSheet, Modal, Platform, Alert} from 'react-native';
 
 import material from '../../native-base-theme/variables/material';
 import platform from '../../native-base-theme/variables/platform';
@@ -75,7 +75,21 @@ export default class extends Component {
 
     let that = this;
     return fetch('https://api.github.com/search/repositories?q=' + this.state.search)
-      .then((response) => response.json())
+      .then((response) => {
+          let json = {};
+
+          if (!response.ok) {
+            return json;
+          }
+
+          try {
+            json = response.json();
+          } catch (ex) {
+            Alert.alert("There is a problem in API response.");
+          }
+          return json;
+        }
+      )
       .then((responseJson) => {
         // Store the results in the state variable results and set loading to
         // false to remove the spinner and display the list of repositories

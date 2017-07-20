@@ -6,7 +6,7 @@ import React from "react";
 import Lucy from "./Chats/Lucy";
 // import JadeChat from "./JadeChat.js";
 // import NineChat from "./NineChat.js";
-import Nb from '../../components/NativeBase';
+import Nb from '../../Tests/NativeBase';
 import { TabNavigator } from "react-navigation";
 import {
   Button,
