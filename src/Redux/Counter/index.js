@@ -2,7 +2,7 @@
  * Created by Pedro Mazala on 20/07/2017.
  */
 import React, {Component} from 'react';
-import {Container, Content, Text, Card, Header, Body, Button, Title, CardItem} from 'native-base';
+import {Container, Content, Text, Card, Header, Body, View, Button, Title, CardItem} from 'native-base';
 import {connect} from 'react-redux';
 
 import {bindActionCreators} from 'redux';
@@ -28,12 +28,14 @@ class Counter extends Component {
               </Text>
             </CardItem>
           </Card>
-          <Button dark bordered onPress={() => this.props.increment()}>
-            <Text>Increment</Text>
-          </Button>
-          <Button dark bordered onPress={() => this.props.decrement()}>
-            <Text>Decrement</Text>
-          </Button>
+          <View style={{flexDirection: 'row'}}>
+            <Button success rounded onPress={() => this.props.increment()} style={{margin: 5}}>
+              <Text>+</Text>
+            </Button>
+            <Button danger rounded onPress={() => this.props.decrement()} style={{margin: 5}}>
+              <Text>-</Text>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
